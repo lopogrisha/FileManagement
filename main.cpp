@@ -531,8 +531,5 @@ int main() {
             break;
         }
     }
-
-    cin.get();
-    cin.get();
     return 0;
 }
