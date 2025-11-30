@@ -5,10 +5,10 @@
 #include <conio.h>
 
 using namespace std;
-namespace fs = std::filesystem;
 
 void viewTextFile(const fs::path& filepath) {
     system("cls");
+
     ifstream file(filepath);
     if (!file.is_open()) {
         cout << "Failed to open file!" << endl;
@@ -17,35 +17,36 @@ void viewTextFile(const fs::path& filepath) {
     }
 
     string line;
-    while (getline(file, line))
-        cout << line << endl;
+    while (getline(file, line)) {
+        cout << line << '\n';
+    }
+    file.close();
 
-    cout << "\nPress any key...";
+    cout << "\nPress any key to return...";
     _getch();
 }
 
 fs::path selectDrive(AbstractFileManager& fm) {
     auto drives = fm.getDrives();
-    if (drives.empty())
+    if (drives.empty()) {
         return fs::current_path();
+    }
 
     while (true) {
         system("cls");
         cout << "Select drive:\n\n";
-
-        for (size_t i = 0; i < drives.size(); i++)
-            cout << i + 1 << ") " << drives[i].string() << "\n";
-
+        for (size_t i = 0; i < drives.size(); ++i) {
+            cout << (i + 1) << ") " << drives[i].string() << "\n";
+        }
         cout << "0) Current path (" << fs::current_path().string() << ")\n";
         cout << "\nChoice: ";
 
         int choice;
         cin >> choice;
 
-        if (choice == 0)
-            return fs::current_path();
-
-        if (choice > 0 && (size_t)choice <= drives.size())
+        if (choice == 0) return fs::current_path();
+        if (choice > 0 && (size_t)choice <= drives.size()) {
             return drives[choice - 1];
+        }
     }
 }

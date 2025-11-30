@@ -5,8 +5,6 @@ class FileManager : public AbstractFileManager {
 private:
     fs::path currentPath;
 
-    static std::string maskToRegex(const std::string& mask);
-
 public:
     FileManager(const fs::path& startPath = fs::current_path());
 
@@ -28,7 +26,11 @@ public:
     bool moveEntry(const fs::path& from, const fs::path& to) override;
 
     uintmax_t getSize(const fs::path& p) const override;
-    std::vector<fs::path> searchByMask(const fs::path& start, const std::string& mask) const override;
+
+    std::vector<fs::path> findByName(const std::string& filename,
+        const fs::path& directory) const override;
+    std::vector<fs::path> findByExtension(const std::string& extension,
+        const fs::path& directory) const override;
 
     std::vector<fs::path> getDrives() const override;
 };

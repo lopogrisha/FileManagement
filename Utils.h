@@ -1,5 +1,10 @@
 #pragma once
 #include <filesystem>
+#include <string>
 
-void viewTextFile(const std::filesystem::path& filepath);
-std::filesystem::path selectDrive(class AbstractFileManager& fm);
+class AbstractFileManager;
+
+namespace fs = std::filesystem;
+
+void viewTextFile(const fs::path& filepath);
+fs::path selectDrive(AbstractFileManager& fm);

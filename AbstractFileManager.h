@@ -25,7 +25,11 @@ public:
     virtual bool moveEntry(const fs::path& from, const fs::path& to) = 0;
 
     virtual uintmax_t getSize(const fs::path& p) const = 0;
-    virtual std::vector<fs::path> searchByMask(const fs::path& start, const std::string& mask) const = 0;
+
+    virtual std::vector<fs::path> findByName(const std::string& filename,
+        const fs::path& directory) const = 0;
+    virtual std::vector<fs::path> findByExtension(const std::string& extension,
+        const fs::path& directory) const = 0;
 
     virtual std::vector<fs::path> getDrives() const = 0;
 

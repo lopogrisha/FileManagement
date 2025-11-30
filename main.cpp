@@ -208,26 +208,55 @@ int main() {
                     _getch();
                 }
             }
-            else if (key == 67) {
+            else if (key == 67) { 
                 system("cls");
-                cout << "Search in: " << fm.getCurrentPath() << endl;
-                cout << "Enter mask (e.g. *.txt): ";
+                cout << "Search:\n";
+                cout << "1 - by file name\n";
+                cout << "2 - by extension\n";
+                cout << "\nEnter choice: ";
+
+                int choice;
+                cin >> choice;
 
                 cin.clear();
-                cin.sync();
-                string mask;
-                getline(cin, mask);
+                cin.ignore(1000, '\n');
 
-                auto results = fm.searchByMask(fm.getCurrentPath(), mask);
+                if (choice == 1) {
+                    system("cls");
+                    cout << "Enter file name (example: test.txt): ";
 
-                system("cls");
-                cout << "Found " << results.size() << " item(s):\n\n";
-                for (auto& p : results) {
-                    cout << p.string() << endl;
+                    string name;
+                    getline(cin, name);
+
+                    auto results = fm.findByName(name, fm.getCurrentPath());
+
+                    system("cls");
+                    cout << "Found " << results.size() << " file(s):\n\n";
+                    for (auto& p : results)
+                        cout << p.string() << "\n";
+
+                    cout << "\nPress any key...";
+                    _getch();
                 }
-                cout << "\nPress any key...";
-                _getch();
-            }
+                else if (choice == 2) {
+                    system("cls");
+                    cout << "Enter extension (example: .txt): ";
+
+                    string ext;
+                    getline(cin, ext);
+
+                    auto results = fm.findByExtension(ext, fm.getCurrentPath());
+
+                    system("cls");
+                    cout << "Found " << results.size() << " file(s):\n\n";
+                    for (auto& p : results)
+                        cout << p.string() << "\n";
+
+                    cout << "\nPress any key...";
+                    _getch();
+                }
+                }
+
 
 
         }
